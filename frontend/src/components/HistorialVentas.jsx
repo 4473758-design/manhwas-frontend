@@ -55,6 +55,11 @@ function HistorialVentas() {
     });
   };
 
+  // Cálculo en tiempo real del total para la compra actual en el formulario
+  const productoSeleccionado = productos.find(p => String(p.id) === String(formulario.producto_id));
+  const precioUnitarioActual = productoSeleccionado ? Number(productoSeleccionado.precio) : 0;
+  const totalCalculadoFormulario = precioUnitarioActual * Number(formulario.cantidad || 0);
+
   const registrarVenta = async (e) => {
     e.preventDefault();
     setError('');
@@ -191,6 +196,18 @@ function HistorialVentas() {
             required
           />
 
+          {/* Cálculo y visualización del total de esta compra específica */}
+          {formulario.producto_id && (
+            <div style={{ background: 'rgba(255, 255, 255, 0.05)', padding: '10px', borderRadius: '6px', margin: '10px 0' }}>
+              <p style={{ margin: 0, fontSize: '0.9rem' }}>
+                Precio unitario: <strong>${precioUnitarioActual.toFixed(2)}</strong>
+              </p>
+              <p style={{ margin: '5px 0 0 0', fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--primary, #646cff)' }}>
+                Total de esta compra: ${totalCalculadoFormulario.toFixed(2)}
+              </p>
+            </div>
+          )}
+
           <label htmlFor="fecha">Fecha de venta</label>
           <input
             id="fecha"
@@ -280,4 +297,10 @@ function HistorialVentas() {
 }
 
 export default HistorialVentas;
+
+
+
+
+
+
 
