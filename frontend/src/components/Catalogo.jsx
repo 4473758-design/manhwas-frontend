@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ManhwaCard from './ManhwaCard';
@@ -18,6 +17,10 @@ function Catalogo() {
       .catch(() => setError('No se pudo cargar el catálogo.'))
       .finally(() => setCargando(false));
   }, []);
+
+  const manejarEliminacion = (idEliminado) => {
+    setManhwas((prev) => prev.filter((m) => m.id !== idEliminado));
+  };
 
   const generos = [
     'Todos',
@@ -70,11 +73,21 @@ function Catalogo() {
 
       <section className="productos">
         {filtrados.map((manhwa) => (
-          <ManhwaCard key={manhwa.id} manhwa={manhwa} />
+          <ManhwaCard 
+            key={manhwa.id} 
+            manhwa={manhwa} 
+            onEliminar={manejarEliminacion}
+          />
         ))}
       </section>
     </main>
   );
 }
+
+export default Catalogo;
+
+
+
+
 
 export default Catalogo;
