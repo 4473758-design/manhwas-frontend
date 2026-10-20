@@ -1,0 +1,1 @@
+const API_URL = "https://manhwas-backend-expy.onrender.com";
