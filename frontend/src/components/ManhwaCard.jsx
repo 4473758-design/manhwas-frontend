@@ -1,5 +1,22 @@
+import axios from 'axios';
 
-function ManhwaCard({ manhwa }) {
+const API = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
+function ManhwaCard({ manhwa, onEliminar }) {
+  const handleDelete = async () => {
+    if (!window.confirm(`¿Estás seguro de eliminar "${manhwa.nombre}"?`)) return;
+
+    try {
+      await axios.delete(`${API}/productos/${manhwa.id}`);
+      if (onEliminar) {
+        onEliminar(manhwa.id);
+      }
+    } catch (error) {
+      alert('No se pudo eliminar el producto.');
+      console.error(error);
+    }
+  };
+
   return (
     <article className="tarjeta">
       {manhwa.portada ? (
@@ -29,6 +46,23 @@ function ManhwaCard({ manhwa }) {
           </strong>
 
           <span>Stock: {manhwa.stock ?? 0}</span>
+
+          <button 
+            type="button"
+            onClick={handleDelete}
+            className="btn-eliminar"
+            style={{
+              backgroundColor: '#e74c3c',
+              color: 'white',
+              border: 'none',
+              padding: '6px 10px',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '0.85rem'
+            }}
+          >
+            Eliminar
+          </button>
         </div>
       </div>
     </article>
@@ -36,3 +70,5 @@ function ManhwaCard({ manhwa }) {
 }
 
 export default ManhwaCard;
+
+
