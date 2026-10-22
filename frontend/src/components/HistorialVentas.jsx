@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -55,10 +56,30 @@ function HistorialVentas() {
     });
   };
 
-  // Cálculo en tiempo real del total para la compra actual en el formulario
-  const productoSeleccionado = productos.find(p => String(p.id) === String(formulario.producto_id));
-  const precioUnitarioActual = productoSeleccionado ? Number(productoSeleccionado.precio) : 0;
-  const totalCalculadoFormulario = precioUnitarioActual * Number(formulario.cantidad || 0);
+  // Calcular automáticamente el precio según el manhwa y la cantidad
+  const productoSeleccionado = productos.find(
+    p => String(p.id) === String(formulario.producto_id)
+  );
+
+  const precioUnitarioActual = productoSeleccionado
+    ? Number(productoSeleccionado.precio)
+    : 0;
+
+  const totalCalculadoFormulario =
+    precioUnitarioActual * Number(formulario.cantidad || 0);
+
+  // Calcular el total de cada venta registrada
+  const calcularTotalVenta = (venta) => {
+    const producto = productos.find(
+      p =>
+        String(p.id) === String(venta.producto_id) ||
+        p.nombre === venta.producto
+    );
+
+    const precio = producto ? Number(producto.precio) : 0;
+
+    return precio * Number(venta.cantidad || 0);
+  };
 
   const registrarVenta = async (e) => {
     e.preventDefault();
@@ -100,20 +121,30 @@ function HistorialVentas() {
 
   const iniciarEdicion = (venta) => {
     setEditandoId(venta.id);
-    
-    const usuarioEncontrado = usuarios.find(u => u.nombre === venta.categoria || u.id === venta.categoria_id);
-    const productoEncontrado = productos.find(p => p.nombre === venta.producto || p.id === venta.producto_id);
+
+    const usuarioEncontrado = usuarios.find(
+      u => u.nombre === venta.categoria ||
+           u.id === venta.categoria_id
+    );
+
+    const productoEncontrado = productos.find(
+      p => p.nombre === venta.producto ||
+           p.id === venta.producto_id
+    );
 
     setFormulario({
       categoria_id: usuarioEncontrado ? usuarioEncontrado.id : '',
       producto_id: productoEncontrado ? productoEncontrado.id : '',
       cantidad: String(venta.cantidad),
-      fecha: venta.fecha ? String(venta.fecha).slice(0, 10) : new Date().toLocaleDateString('en-CA')
+      fecha: venta.fecha
+        ? String(venta.fecha).slice(0, 10)
+        : new Date().toLocaleDateString('en-CA')
     });
   };
 
   const cancelarEdicion = () => {
     setEditandoId(null);
+
     setFormulario({
       categoria_id: '',
       producto_id: '',
@@ -149,7 +180,11 @@ function HistorialVentas() {
       </section>
 
       <section className="panel">
-        <h2>{editandoId ? `Editar venta ID: ${editandoId}` : 'Registrar venta'}</h2>
+        <h2>
+          {editandoId
+            ? `Editar venta ID: ${editandoId}`
+            : 'Registrar venta'}
+        </h2>
 
         <form className="formulario" onSubmit={registrarVenta}>
           <label htmlFor="categoria_id">Usuario registrado</label>
@@ -196,14 +231,31 @@ function HistorialVentas() {
             required
           />
 
-          {/* Cálculo y visualización del total de esta compra específica */}
+          {/* Mostrar el precio y el total automáticamente */}
           {formulario.producto_id && (
-            <div style={{ background: 'rgba(255, 255, 255, 0.05)', padding: '10px', borderRadius: '6px', margin: '10px 0' }}>
+            <div
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                padding: '10px',
+                borderRadius: '6px',
+                margin: '10px 0'
+              }}
+            >
               <p style={{ margin: 0, fontSize: '0.9rem' }}>
-                Precio unitario: <strong>${precioUnitarioActual.toFixed(2)}</strong>
+                Precio unitario:{' '}
+                <strong>${precioUnitarioActual.toFixed(2)}</strong>
               </p>
-              <p style={{ margin: '5px 0 0 0', fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--primary, #646cff)' }}>
-                Total de esta compra: ${totalCalculadoFormulario.toFixed(2)}
+
+              <p
+                style={{
+                  margin: '5px 0 0 0',
+                  fontSize: '1.1rem',
+                  fontWeight: 'bold',
+                  color: 'var(--primary, #646cff)'
+                }}
+              >
+                Total de esta compra: $
+                {totalCalculadoFormulario.toFixed(2)}
               </p>
             </div>
           )}
@@ -219,11 +271,24 @@ function HistorialVentas() {
           />
 
           <div style={{ display: 'flex', gap: '10px' }}>
-            <button className="boton" type="submit" style={{ flex: 1 }}>
+            <button
+              className="boton"
+              type="submit"
+              style={{ flex: 1 }}
+            >
               {editandoId ? 'Guardar cambios' : 'Registrar venta'}
             </button>
+
             {editandoId && (
-              <button type="button" onClick={cancelarEdicion} className="boton" style={{ background: 'var(--text-muted)', flex: 1 }}>
+              <button
+                type="button"
+                onClick={cancelarEdicion}
+                className="boton"
+                style={{
+                  background: 'var(--text-muted)',
+                  flex: 1
+                }}
+              >
                 Cancelar
               </button>
             )}
@@ -252,41 +317,62 @@ function HistorialVentas() {
                   <th>Usuario</th>
                   <th>Manhwa</th>
                   <th>Cantidad</th>
+                  <th>Precio unitario</th>
+                  <th>Total</th>
                   <th>Fecha</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
 
               <tbody>
-                {ventas.map((venta) => (
-                  <tr key={venta.id}>
-                    <td>{venta.id}</td>
-                    <td>{venta.categoria}</td>
-                    <td>{venta.producto}</td>
-                    <td>{venta.cantidad}</td>
-                    <td>
-                      {venta.fecha
-                        ? String(venta.fecha).slice(0, 10)
-                        : ''}
-                    </td>
-                    <td>
-                      <div style={{ display: 'flex', gap: '8px' }}>
-                        <button 
-                          onClick={() => iniciarEdicion(venta)}
-                          className="btn-accion btn-editar"
-                        >
-                          ✏️ Editar
-                        </button>
-                        <button 
-                          onClick={() => eliminarVenta(venta.id)}
-                          className="btn-accion btn-eliminar"
-                        >
-                          🗑️ Eliminar
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                {ventas.map((venta) => {
+                  const producto = productos.find(
+                    p =>
+                      String(p.id) === String(venta.producto_id) ||
+                      p.nombre === venta.producto
+                  );
+
+                  const precioUnitario = producto
+                    ? Number(producto.precio)
+                    : 0;
+
+                  const totalVenta = calcularTotalVenta(venta);
+
+                  return (
+                    <tr key={venta.id}>
+                      <td>{venta.id}</td>
+                      <td>{venta.categoria}</td>
+                      <td>{venta.producto}</td>
+                      <td>{venta.cantidad}</td>
+                      <td>${precioUnitario.toFixed(2)}</td>
+                      <td>
+                        <strong>${totalVenta.toFixed(2)}</strong>
+                      </td>
+                      <td>
+                        {venta.fecha
+                          ? String(venta.fecha).slice(0, 10)
+                          : ''}
+                      </td>
+                      <td>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          <button
+                            onClick={() => iniciarEdicion(venta)}
+                            className="btn-accion btn-editar"
+                          >
+                            ✏️ Editar
+                          </button>
+
+                          <button
+                            onClick={() => eliminarVenta(venta.id)}
+                            className="btn-accion btn-eliminar"
+                          >
+                            🗑️ Eliminar
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -297,6 +383,9 @@ function HistorialVentas() {
 }
 
 export default HistorialVentas;
+
+
+
 
 
 
