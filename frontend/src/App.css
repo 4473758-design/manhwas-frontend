@@ -1,25 +1,26 @@
- @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
   /* Tokens de Diseño: Kawaii Pastel & Elegancia UI */
-  --bg-app: #ecc9d5;             /* Rosa lavanda ultra suave (Lavender Blush) */
+  --bg-app: #ecc9d5;
   --bg-glass: rgba(226, 204, 231, 0.85);
   --bg-card: #e5bff3;
   --bg-input: #ceaad4;
-  
-  --rosa-kawaii: #b72b63;        /* Fucsia tierno y brillante */
+
+  --rosa-kawaii: #b72b63;
   --rosa-hover: #bc5d83;
-  --rosa-light: #ed88ea;         /* Fondo suave para etiquetas */
-  --morado-pastel: #aa97e0;      /* Lila estético */
-  --celeste-pastel: #9eb4d7;     /* Azul cielo suave */
-  
-  --text-main: #1d0423;          /* Tono ciruela oscuro muy elegante para textos */
+  --rosa-light: #ed88ea;
+  --morado-pastel: #aa97e0;
+  --celeste-pastel: #9eb4d7;
+
+  --text-main: #1d0423;
   --text-muted: #524156;
-  --border-kawaii: #703441;      /* Borde rosa pastel cálido */
-  
+  --border-kawaii: #703441;
+
   --shadow-kawaii: 0 15px 35px rgba(255, 101, 163, 0.12);
   --shadow-card: 0 10px 25px rgba(255, 182, 193, 0.2);
-  
+
   --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --heading: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
 
@@ -31,7 +32,9 @@
   -webkit-font-smoothing: antialiased;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -45,6 +48,7 @@ body {
 
 /* Contenedor Principal con Márgenes Estéticos */
 .kawaii-app-shell {
+  width: 100%;
   max-width: 1300px;
   margin: 0 auto;
   padding: 24px;
@@ -66,8 +70,18 @@ body {
   opacity: 0.55;
   pointer-events: none;
 }
-.glow-pink { top: -80px; left: -80px; background: rgba(255, 182, 193, 0.7); }
-.glow-purple { top: 35%; right: -100px; background: rgba(221, 160, 221, 0.6); }
+
+.glow-pink {
+  top: -80px;
+  left: -80px;
+  background: rgba(255, 182, 193, 0.7);
+}
+
+.glow-purple {
+  top: 35%;
+  right: -100px;
+  background: rgba(221, 160, 221, 0.6);
+}
 
 .kawaii-main-content {
   flex: 1;
@@ -75,6 +89,7 @@ body {
   flex-direction: column;
   gap: 32px;
   padding-bottom: 50px;
+  min-width: 0;
 }
 
 a {
@@ -83,13 +98,17 @@ a {
   transition: all 0.25s ease;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font: inherit;
 }
 
 /* =========================================
    NAVBAR ESTILO CÁPSULA GLASSMORPHISM
    ========================================= */
+
 .navbar {
   position: sticky;
   top: 16px;
@@ -105,6 +124,7 @@ button, input, select, textarea {
   border: 2px solid #ffffff;
   box-shadow: 0 8px 25px rgba(255, 182, 193, 0.25);
   margin-bottom: 12px;
+  min-width: 0;
 }
 
 .logo {
@@ -123,6 +143,7 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .menu a {
@@ -133,6 +154,7 @@ button, input, select, textarea {
   padding: 10px 20px;
   border-radius: 25px;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .menu a:hover,
@@ -145,6 +167,7 @@ button, input, select, textarea {
 /* =========================================
    HERO BANNER KAWAIIDELUXE
    ========================================= */
+
 .hero {
   padding: 75px 60px;
   border-radius: 36px;
@@ -201,6 +224,7 @@ button, input, select, textarea {
 /* =========================================
    BOTONES Y ACCIONES KAWAIIS (CÁPSULA)
    ========================================= */
+
 .boton {
   display: inline-flex;
   align-items: center;
@@ -238,8 +262,9 @@ button, input, select, textarea {
 }
 
 /* =========================================
-   TARJETAS Y PANELES (UNIFICADO EN TODAS LAS VISTAS)
+   TARJETAS Y PANELES
    ========================================= */
+
 .beneficios {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -282,10 +307,12 @@ button, input, select, textarea {
 }
 
 /* =========================================
-   CATÁLOGO Y TARJETAS DE MANHWAS (SUPER LINDAS)
+   CATÁLOGO Y TARJETAS DE MANHWAS
    ========================================= */
+
 .pagina {
   padding: 10px 0;
+  min-width: 0;
 }
 
 .encabezado-pagina {
@@ -316,6 +343,7 @@ button, input, select, textarea {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .portada,
@@ -345,6 +373,7 @@ button, input, select, textarea {
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-width: 0;
 }
 
 .genero {
@@ -367,18 +396,21 @@ button, input, select, textarea {
   margin: 12px 0 8px 0;
   color: var(--text-main);
   line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
 .descripcion {
   font-size: 13px;
   color: var(--text-muted);
   line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 .producto-pie {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   margin-top: auto;
   padding-top: 16px;
   border-top: 1px solid var(--border-kawaii);
@@ -400,10 +432,12 @@ button, input, select, textarea {
 /* =========================================
    FORMULARIOS Y FILTROS ESTILO CÁPSULA
    ========================================= */
+
 .filtros {
   display: flex;
   gap: 16px;
   margin: 30px 0;
+  min-width: 0;
 }
 
 .filtros input,
@@ -412,6 +446,7 @@ button, input, select, textarea {
 .formulario select,
 .formulario textarea {
   width: 100%;
+  min-width: 0;
   padding: 15px 22px;
   border: 2px solid var(--border-kawaii);
   border-radius: 30px;
@@ -437,8 +472,10 @@ button, input, select, textarea {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 100%;
   max-width: 850px;
   margin: 0 auto;
+  min-width: 0;
 }
 
 .formulario label {
@@ -453,6 +490,7 @@ button, input, select, textarea {
 
 .formulario textarea {
   border-radius: 24px;
+  resize: vertical;
 }
 
 .formulario .boton {
@@ -483,16 +521,22 @@ button, input, select, textarea {
 /* =========================================
    TABLAS DE DATOS REDONDEADAS Y LINDAS
    ========================================= */
+
 .tabla-contenedor {
   margin-top: 40px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .tabla-scroll {
+  width: 100%;
+  max-width: 100%;
   border-radius: 32px;
   overflow-x: auto;
   background: var(--bg-card);
   box-shadow: var(--shadow-card);
   border: 2px solid #f0d0d0;
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
@@ -501,7 +545,8 @@ table {
   text-align: left;
 }
 
-th, td {
+th,
+td {
   padding: 18px 24px;
 }
 
@@ -525,6 +570,7 @@ td {
 /* =========================================
    FOOTER KAWAIIDELUXE
    ========================================= */
+
 .kawaii-footer {
   padding: 40px 0 20px 0;
   text-align: center;
@@ -558,57 +604,9 @@ td {
 }
 
 /* =========================================
-   ADAPTABILIDAD RESPONSIVE MÓVIL
+   BOTONES DE ACCIÓN EN TABLAS
    ========================================= */
-@media (max-width: 768px) {
-  .kawaii-app-shell {
-    padding: 12px;
-  }
 
-  .navbar {
-    flex-direction: column;
-    gap: 14px;
-    padding: 16px;
-    border-radius: 24px;
-    top: 10px;
-  }
-
-  .menu {
-    width: 100%;
-    justify-content: space-between;
-    overflow-x: auto;
-    padding-bottom: 4px;
-  }
-
-  .menu a {
-    padding: 8px 12px;
-    font-size: 12px;
-  }
-
-  .hero {
-    padding: 40px 24px;
-    border-radius: 28px;
-  }
-
-  .filtros {
-    flex-direction: column;
-  }
-
-  .productos {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 16px;
-  }
-
-  .portada, .portada-vacia {
-    height: 220px;
-  }
-
-  .formulario, .beneficios article, .tarjeta {
-    padding: 22px;
-    border-radius: 24px;
-  }
-}
- /* Estilos para los botones de acción en la tabla (Editar y Eliminar) */
 .btn-accion {
   border: none;
   padding: 8px 14px;
@@ -620,6 +618,7 @@ td {
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
 }
 
@@ -644,5 +643,263 @@ td {
   color: #ffffff;
   transform: translateY(-2px);
 }
- 
+
+/* =========================================
+   ADAPTABILIDAD RESPONSIVE
+   ========================================= */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 768px) {
+  .kawaii-app-shell {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 24px;
+    top: 10px;
+  }
+
+  .menu {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+    gap: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .menu a {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .hero {
+    padding: 40px 24px;
+    border-radius: 28px;
+  }
+
+  .filtros {
+    flex-direction: column;
+  }
+
+  .productos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .portada,
+  .portada-vacia {
+    height: 220px;
+  }
+
+  .formulario,
+  .beneficios article,
+  .panel {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .tabla-scroll table {
+    min-width: 600px;
+  }
+
+  .kawaii-main-content {
+    gap: 24px;
+    padding-bottom: 35px;
+  }
+
+  .encabezado-pagina h1 {
+    font-size: clamp(28px, 5vw, 38px);
+  }
+}
+
+/* Teléfonos */
+@media (max-width: 480px) {
+  .kawaii-app-shell {
+    padding: 10px;
+  }
+
+  .navbar {
+    padding: 14px;
+    border-radius: 22px;
+  }
+
+  .logo {
+    font-size: 21px;
+  }
+
+  .hero {
+    padding: 30px 18px;
+    border-radius: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 8vw, 38px);
+  }
+
+  .hero p {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .etiqueta {
+    font-size: 10px;
+    padding: 6px 12px;
+  }
+
+  .encabezado-pagina h1 {
+    font-size: 28px;
+  }
+
+  .encabezado-pagina p {
+    font-size: 14px;
+  }
+
+  .productos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .tarjeta {
+    border-radius: 20px;
+  }
+
+  .portada,
+  .portada-vacia {
+    height: auto;
+    aspect-ratio: 3 / 4;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .info-producto {
+    padding: 12px;
+  }
+
+  .info-producto h3 {
+    font-size: 16px;
+  }
+
+  .genero {
+    font-size: 9px;
+    padding: 5px 9px;
+    letter-spacing: 0.5px;
+  }
+
+  .descripcion {
+    font-size: 12px;
+  }
+
+  .producto-pie {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .producto-pie strong {
+    font-size: 17px;
+  }
+
+  .beneficios {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .beneficios article,
+  .panel,
+  .formulario {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .filtros {
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .filtros input,
+  .filtros select,
+  .formulario input,
+  .formulario select,
+  .formulario textarea {
+    padding: 13px 15px;
+  }
+
+  .boton {
+    max-width: 100%;
+    padding: 12px 22px;
+    white-space: normal;
+  }
+
+  .tabla-contenedor {
+    margin-top: 24px;
+  }
+
+  .tabla-scroll {
+    border-radius: 18px;
+  }
+
+  .tabla-scroll table {
+    min-width: 600px;
+  }
+
+  .tabla-scroll th,
+  .tabla-scroll td {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .btn-accion {
+    padding: 8px 10px;
+  }
+
+  .kawaii-footer {
+    padding: 25px 8px 15px;
+  }
+
+  .kawaii-footer p {
+    font-size: 12px;
+  }
+}
+
+/* Teléfonos muy pequeños */
+@media (max-width: 350px) {
+  .kawaii-app-shell {
+    padding: 8px;
+  }
+
+  .productos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portada,
+  .portada-vacia {
+    max-height: 360px;
+  }
+
+  .hero {
+    padding: 26px 16px;
+  }
+
+  .formulario,
+  .panel,
+  .beneficios article {
+    padding: 16px;
+  }
+
+  .menu a {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}
+
+
+
+
  
